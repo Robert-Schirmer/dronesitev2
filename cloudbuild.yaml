@@ -15,7 +15,7 @@ steps:
         "builds",
         "submit",
         "--tag",
-        "us-central1-docker.pkg.dev/dronesite/docker-repo/website:$COMMIT_SHA",
+        "us-central1-docker.pkg.dev/iflydrones/docker-repo/website:$COMMIT_SHA",
       ]
 
   # Deploy image
@@ -27,7 +27,7 @@ steps:
         "deploy",
         "${_DEPLOY_INSTANCE}",
         "--image",
-        "us-central1-docker.pkg.dev/dronesite/docker-repo/website:$COMMIT_SHA",
+        "us-central1-docker.pkg.dev/iflydrones/docker-repo/website:$COMMIT_SHA",
         "--region=us-central1",
       ]
 timeout: 1020s
