@@ -1,0 +1,90 @@
+{
+  "root": true,
+  "env": {
+    "es2021": true,
+    "node": true,
+    "browser": true
+  },
+  "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:prettier/recommended", "next"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "react-hooks", "@typescript-eslint"],
+  "globals": {
+    // React is defined globally, don't need to import
+    "React": "readonly"
+  },
+  "rules": {
+    "react/no-unused-prop-types": "warn",
+    // Self closing components are super clean
+    "react/self-closing-comp": [
+      "warn",
+      {
+        "component": true,
+        "html": true
+      }
+    ],
+    // We are using typescript to no prop types necessary
+    "react/prop-types": "off",
+    "react/no-unescaped-entities": [
+      "error",
+      {
+        "forbid": [
+          {
+            "char": ">",
+            "alternatives": ["&gt;"]
+          },
+          {
+            "char": "}",
+            "alternatives": ["&#125;"]
+          }
+        ]
+      }
+    ],
+    // Default no-unused-vars will not work with typescript
+    "no-unused-vars": "off",
+    // Need to enable the typescript no-unused-vars
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    // React now allows this to happen so no need to lint
+    "react/react-in-jsx-scope": "off",
+    "brace-style": "warn",
+    "prettier/prettier": "warn",
+    // Backwards for loops can be useful
+    "for-direction": "off",
+    "react/jsx-no-useless-fragment": "warn",
+    "react/jsx-tag-spacing": "warn",
+    "react/jsx-pascal-case": ["warn", { "ignore": ["FAQ"] }],
+    // Checks rules of Hooks
+    "react-hooks/rules-of-hooks": "error",
+    // Checks dependencies
+    "react-hooks/exhaustive-deps": "error",
+    // Force using NextJS's Image component
+    "@next/next/no-img-element": "off",
+    "import/order": [
+      "warn",
+      {
+        "newlines-between": "never",
+        "groups": ["external", "builtin", "internal", "sibling", "parent", "index"],
+        "alphabetize": {
+          "order": "asc" /* sort in ascending order. Options: ['ignore', 'asc', 'desc'] */,
+          "caseInsensitive": true /* ignore case. Options: [true, false] */
+        }
+      }
+    ]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}

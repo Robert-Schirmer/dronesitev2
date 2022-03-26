@@ -1,0 +1,33 @@
+steps:
+  # Update env
+  - name: node
+    entrypoint: npm
+    args: ["run", "create-env"]
+    env:
+      - "NEXT_PUBLIC_GOOGLE_ANALYTICS=${_GA_TAG}"
+
+  # Build image
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: "gcloud"
+    timeout: 900s
+    args:
+      [
+        "builds",
+        "submit",
+        "--tag",
+        "us-central1-docker.pkg.dev/dronesite/docker-repo/website:$COMMIT_SHA",
+      ]
+
+  # Deploy image
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: "gcloud"
+    args:
+      [
+        "run",
+        "deploy",
+        "${_DEPLOY_INSTANCE}",
+        "--image",
+        "us-central1-docker.pkg.dev/dronesite/docker-repo/website:$COMMIT_SHA",
+        "--region=us-central1",
+      ]
+timeout: 1020s

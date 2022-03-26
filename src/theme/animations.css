@@ -1,0 +1,31 @@
+/* All animations in the app */
+@keyframes breathing {
+  0% {
+    box-shadow: none;
+  }
+  50% {
+    box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px,
+      rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
+  }
+  100% {
+    box-shadow: none;
+  }
+}
+
+@keyframes shine {
+  0% {
+    transform: skewX(46deg) translateX(0px);
+  }
+  100% {
+    transform: skewX(46deg) translateX(600px);
+  }
+}
+
+@keyframes holo {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
