@@ -18,7 +18,7 @@ const desc = 'Drone photography';
  */
 export const pages: { [href: string]: Page } = {
   '/': {
-    label: 'home',
+    label: 'gallery',
     title: 'Big Air Angles',
     desc,
     href: '/',
