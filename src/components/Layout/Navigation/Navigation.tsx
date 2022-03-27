@@ -129,7 +129,7 @@ const Nav: React.FC<NavProps> = ({ showLogo }) => {
         </Hidden>
       </Grid>
       <Hidden mdUp>
-        <Grid item container justifyContent='center' alignItems='center' xs={6}>
+        <Grid item container xs={9}>
           {showLogo && (
             <Link href='/' passHref>
               <Grid
@@ -143,7 +143,6 @@ const Nav: React.FC<NavProps> = ({ showLogo }) => {
                   },
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
                 }}
               >
                 <MainLogo />
@@ -163,15 +162,13 @@ const Nav: React.FC<NavProps> = ({ showLogo }) => {
         container
         alignItems='center'
         spacing={1}
-        xs={3}
+        xs={0}
         md={4}
       >
         <Hidden mdDown>
           <Grid item>
             <ThemeSwitch />
           </Grid>
-        </Hidden>
-        <Hidden mdDown>
           <Grid item>
             <SignOutButton />
           </Grid>

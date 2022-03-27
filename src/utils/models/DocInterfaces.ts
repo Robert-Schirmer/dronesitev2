@@ -18,10 +18,3 @@ export enum Role {
 export interface UserRoleDoc extends BaseDocRef {
   roles: Role[];
 }
-
-/**
- * /siteconfigs/test
- */
-export interface TestDoc extends BaseDocRef {
-  msg: string;
-}

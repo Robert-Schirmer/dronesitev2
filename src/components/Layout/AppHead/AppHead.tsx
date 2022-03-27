@@ -8,10 +8,7 @@ const AppHead: React.FC = () => {
   return (
     <Head>
       <title>{pages[router.asPath] ? pages[router.asPath].title : 'Big Air Angles'}</title>
-      <meta
-        name='description'
-        content={pages[router.asPath] ? pages[router.asPath].desc : 'Drone photography'}
-      />
+      <meta name='description' content={pages[router.asPath] ? pages[router.asPath].desc : 'Drone photography'} />
       <link rel='icon' href='/favicon.ico' />
     </Head>
   );
