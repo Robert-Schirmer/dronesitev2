@@ -2,24 +2,27 @@ import { Box } from '@mui/material';
 
 interface Props {
   src: string;
+  loadingSrc: string;
   onClick: () => void;
 }
 
-const GalleryImage: React.FC<Props> = ({ src, onClick }) => {
+const GalleryImage: React.FC<Props> = ({ src, onClick, loadingSrc }) => {
   return (
     <Box
       sx={{
-        img: {
-          boxShadow: (theme) => theme.boxShadow,
-          borderRadius: (theme) => theme.borderRadius,
+        img: (theme) => ({
+          boxShadow: theme.boxShadow,
+          borderRadius: theme.borderRadius,
           width: '300px',
+          background: `url(${loadingSrc}) no-repeat`,
+          backgroundSize: 'contain',
           '&:hover': {
             cursor: 'pointer',
           },
-        },
+        }),
       }}
     >
-      <img src={src} alt='Gallery image' onClick={onClick} />
+      <img loading='lazy' src={src} alt='Gallery image' onClick={onClick} />
     </Box>
   );
 };

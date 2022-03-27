@@ -16,16 +16,17 @@ const Gallery: React.FC = () => {
   return (
     <ContentContainer container spacing={7} justifyContent='center'>
       {imgs.map((img, index) => {
-        const src = createImagePath(img, 300);
+        const loadingSrc = createImagePath(img, 300);
+        const gallerySrc = createImagePath(img, 600);
         const srcSet = createSrcSet(img);
 
         return (
           <Grid item key={img}>
-            <GalleryImage src={src} onClick={() => setModalVisibleIndex(index)} />
+            <GalleryImage src={gallerySrc} loadingSrc={loadingSrc} onClick={() => setModalVisibleIndex(index)} />
             <Modal
               srcSet={srcSet}
               visible={index === modalVisibleIndex}
-              loadingSrc={src}
+              loadingSrc={loadingSrc}
               onClose={() => setModalVisibleIndex(false)}
             />
           </Grid>
