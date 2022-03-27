@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Loading from '../../../Loading';
 
 interface ModalProps {
@@ -11,9 +11,16 @@ interface ModalProps {
 
 const Modal: React.FC<ModalProps> = ({ srcSet, visible, loadingSrc, onClose }) => {
   const [loading, setLoading] = useState(visible);
+  const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
-    setLoading(visible);
+    if (visible && imgRef.current && !imgRef.current.complete) {
+      // Show loading indicator if image is not loaded
+      setLoading(true);
+      imgRef.current.onload = function () {
+        setLoading(false);
+      };
+    }
   }, [visible]);
 
   return visible ? (
@@ -44,7 +51,7 @@ const Modal: React.FC<ModalProps> = ({ srcSet, visible, loadingSrc, onClose }) =
       }}
       onClick={onClose}
     >
-      <img onLoad={() => setLoading(false)} srcSet={srcSet} alt='Drone image large' />
+      <img ref={imgRef} srcSet={srcSet} alt='Drone image large' />
       {loading && <Loading className='loading-icon' />}
     </Box>
   ) : null;
