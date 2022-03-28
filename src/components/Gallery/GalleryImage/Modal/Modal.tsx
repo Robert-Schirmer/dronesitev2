@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Zoom } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import Loading from '../../../Loading';
 
@@ -26,7 +26,7 @@ const Modal: React.FC<ModalProps> = ({ srcSet, visible, loadingSrc, onClose }) =
   return visible ? (
     <Box
       sx={{
-        background: 'rgba(0, 0, 0, 0.5)',
+        background: 'rgba(0, 0, 0, 1)',
         height: '100vh',
         width: '100vw',
         display: 'flex',
@@ -35,13 +35,11 @@ const Modal: React.FC<ModalProps> = ({ srcSet, visible, loadingSrc, onClose }) =
         position: 'fixed',
         top: 0,
         left: 0,
-        padding: '20px',
-        maxWidth: '2000px',
+        maxWidth: '3000px',
         zIndex: 2,
         img: {
           maxWidth: '100%',
-          maxHeight: '80vh',
-          borderRadius: (theme) => theme.borderRadius,
+          maxHeight: '100%',
           background: `url(${loadingSrc}) no-repeat`,
           backgroundSize: 'contain',
         },
@@ -51,7 +49,9 @@ const Modal: React.FC<ModalProps> = ({ srcSet, visible, loadingSrc, onClose }) =
       }}
       onClick={onClose}
     >
-      <img ref={imgRef} srcSet={srcSet} alt='Drone image large' />
+      <Zoom in={true}>
+        <img ref={imgRef} srcSet={srcSet} alt='Drone image large' />
+      </Zoom>
       {loading && <Loading className='loading-icon' />}
     </Box>
   ) : null;
