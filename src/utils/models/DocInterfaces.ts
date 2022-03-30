@@ -18,3 +18,16 @@ export enum Role {
 export interface UserRoleDoc extends BaseDocRef {
   roles: Role[];
 }
+
+/**
+ * /images/{doc}
+ */
+export interface ImageDoc extends BaseDocRef {
+  src: string;
+  meta: PhotoMeta[];
+}
+
+export interface PhotoMeta {
+  label: string;
+  value: string;
+}

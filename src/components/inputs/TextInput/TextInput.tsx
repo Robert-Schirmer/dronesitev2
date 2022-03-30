@@ -1,10 +1,12 @@
 import { Box, Typography, TextField } from '@mui/material';
 import { useCallback } from 'react';
 
+type Value = string | number | null;
+
 interface Props {
-  value: string | number | null;
+  value: Value;
   type?: 'string' | 'number' | 'password';
-  onChange?: (newValue: string | number | null) => void;
+  onChange?: (newValue: Value) => void;
   label?: string;
   desc?: string;
   // Turn an empty string into null
