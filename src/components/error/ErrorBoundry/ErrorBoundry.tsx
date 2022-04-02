@@ -4,7 +4,7 @@ import React from 'react';
 interface Props {}
 
 interface State {
-  hasError: Boolean;
+  hasError: boolean;
 }
 
 class ErrorBoundary extends React.Component<Props, State> {

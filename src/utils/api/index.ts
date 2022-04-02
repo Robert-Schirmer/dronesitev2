@@ -1,8 +1,9 @@
-import type { NextApiResponse } from 'next';
-import type { NextResponse } from 'next/server';
-import type { BlendResponse } from './types';
 import { CookieSerializeOptions, serialize } from 'cookie';
+import type { NextApiResponse } from 'next';
+// eslint-disable-next-line @next/next/no-server-import-in-page
+import type { NextResponse } from 'next/server';
 import type { ServerResponse } from 'http';
+import type { BlendResponse } from './types';
 
 interface Args {
   name: string;

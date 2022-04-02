@@ -7,7 +7,7 @@ const useCountDown: (date: Date | null) => string = (date) => {
   }, [seconds]);
 
   useEffect(() => {
-    let interval: NodeJS.Timer | null = null;
+    let interval: ReturnType<typeof setInterval> | null = null;
     if (!date) {
       setSeconds(0);
     } else {

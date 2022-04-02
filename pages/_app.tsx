@@ -1,3 +1,4 @@
+import { CacheProvider, EmotionCache } from '@emotion/react';
 import { CssBaseline, StyledEngineProvider } from '@mui/material';
 import type { AppProps } from 'next/app';
 import { useEffect } from 'react';
@@ -8,22 +9,19 @@ import smoothscroll from 'smoothscroll-polyfill';
 import AppHead from '../src/components/Layout/AppHead';
 import DynamicProviders from '../src/components/Providers/DynamicProviders';
 import ThemeProvider from '../src/contexts/ThemeContext/ThemeProvider';
-import { consoleArt } from '../src/utils/functions';
+import createEmotionCache from '../src/utils/functions/createEmotionCache';
 
-function MyApp({ Component, pageProps }: AppProps) {
+// Client-side cache, shared for the whole session of the user in the browser.
+const clientSideEmotionCache = createEmotionCache();
+
+function MyApp({ Component, emotionCache = clientSideEmotionCache, pageProps }: MyAppProps) {
   useEffect(() => {
     // Kick off ployfill for native smooth scrolling
     smoothscroll.polyfill();
-    // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector('#jss-server-side');
-    if (jssStyles) {
-      jssStyles.parentElement!.removeChild(jssStyles);
-    }
-    consoleArt();
   }, []);
 
   return (
-    <>
+    <CacheProvider value={emotionCache}>
       <AppHead />
       <StyledEngineProvider injectFirst>
         <ThemeProvider>
@@ -34,8 +32,12 @@ function MyApp({ Component, pageProps }: AppProps) {
           </DynamicProviders>
         </ThemeProvider>
       </StyledEngineProvider>
-    </>
+    </CacheProvider>
   );
 }
 
 export default MyApp;
+
+interface MyAppProps extends AppProps {
+  emotionCache: EmotionCache;
+}

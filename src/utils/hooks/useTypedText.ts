@@ -5,7 +5,7 @@ const useTypedText = (text: string, typeSpeed: number = 100): [string, boolean] 
 
   useEffect(() => {
     setTitle('_');
-    let interval: NodeJS.Timer | null = null;
+    let interval: ReturnType<typeof setInterval> | null = null;
     const to = setTimeout(() => {
       interval = setInterval(() => {
         setTitle((prevTitle) => {

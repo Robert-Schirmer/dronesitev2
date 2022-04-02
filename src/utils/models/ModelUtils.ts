@@ -1,7 +1,7 @@
 import type { DocumentSnapshot as AdminDocumentSnapshot } from 'firebase-admin/firestore';
 import { DocumentData, QueryDocumentSnapshot, DocumentSnapshot, getDoc, doc } from 'firebase/firestore/lite';
-import { firestore } from '../firebase/app';
 import type { BaseDocRef } from './DocInterfaces';
+import { firestore } from '../firebase/app';
 
 type DocSnap =
   | QueryDocumentSnapshot<DocumentData>

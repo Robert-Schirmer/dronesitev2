@@ -1,7 +1,7 @@
+import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, User, signOut } from 'firebase/auth';
 import { useCallback, useEffect, useState } from 'react';
 import '../../utils/firebase/app'; // Make sure firebse is initialized
 import { UserAuthContext } from './useUserAuth';
-import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, User, signOut } from 'firebase/auth';
 import { setCookie } from '../../utils/cookies';
 import { CookieName } from '../../utils/cookies/enums';
 import type { Role } from '../../utils/models/DocInterfaces';

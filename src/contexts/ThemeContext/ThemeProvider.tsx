@@ -1,9 +1,9 @@
+import { ThemeProvider as MUIThemeProvider } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
 import type { ThemeMode } from './types';
 import { ThemeModeContext } from './useThemeMode';
-import { ThemeProvider as MUIThemeProvider } from '@mui/material';
-import lightTheme from '../../theme/light';
 import darkTheme from '../../theme/dark';
+import lightTheme from '../../theme/light';
 import { getCookie, setCookie } from '../../utils/cookies';
 import { CookieName } from '../../utils/cookies/enums';
 

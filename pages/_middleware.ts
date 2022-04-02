@@ -3,7 +3,7 @@ import { setCookie } from '../src/utils/api';
 import { createJWTToken, isJWTTokenError, validJWTToken } from '../src/utils/api/jwt/index';
 import { CookieName } from '../src/utils/cookies/enums';
 
-/*
+/**
  * Middleware for entire website
  */
 export async function middleware(req: NextRequest) {
