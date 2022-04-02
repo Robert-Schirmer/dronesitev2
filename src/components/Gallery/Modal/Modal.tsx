@@ -1,6 +1,6 @@
 import { Box, Zoom } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
-import Loading from '../../../Loading';
+import Loading from '../../Loading';
 
 interface ModalProps {
   visible: boolean;

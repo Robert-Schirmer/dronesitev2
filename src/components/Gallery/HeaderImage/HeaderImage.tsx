@@ -1,21 +1,12 @@
 import { Box } from '@mui/material';
-import { useMemo } from 'react';
-import type { ImageDoc } from '../../../utils/models/DocInterfaces';
-import { createImagePath, createSrcSet } from '../utils';
 
 interface Props {
-  image: ImageDoc;
+  srcSet: string;
+  loadingSrc: string;
+  onClick: () => void;
 }
 
-const HeaderImage: React.FC<Props> = ({ image }) => {
-  const { srcSet, loadingSrc } = useMemo(
-    () => ({
-      srcSet: createSrcSet(image.src),
-      loadingSrc: createImagePath(image.src, 300),
-    }),
-    [image.src],
-  );
-
+const HeaderImage: React.FC<Props> = ({ srcSet, onClick, loadingSrc }) => {
   return (
     <Box
       sx={{
@@ -26,10 +17,13 @@ const HeaderImage: React.FC<Props> = ({ image }) => {
           maxWidth: '1000px',
           background: `url(${loadingSrc}) no-repeat`,
           backgroundSize: 'contain',
+          '&:hover': {
+            cursor: 'pointer',
+          },
         }),
       }}
     >
-      <img srcSet={srcSet} alt='Header image' />
+      <img srcSet={srcSet} alt='Header image' onClick={onClick} />
     </Box>
   );
 };
