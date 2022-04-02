@@ -11,6 +11,7 @@ const GalleryImage: React.FC<Props> = ({ src, onClick, loadingSrc }) => {
     <Box
       sx={{
         img: (theme) => ({
+          margin: '20px',
           boxShadow: theme.boxShadow,
           borderRadius: theme.borderRadius,
           width: '300px',

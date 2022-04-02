@@ -21,3 +21,11 @@ export const convertTimestamp = (date: Timestamp | Date): Date => {
   }
   return date as Date;
 };
+
+export const getRandomFromArray = <T>(array: T[]): { random: T; randomIndex: number } => {
+  const randomIndex = Math.floor(Math.random() * array.length);
+  return {
+    random: array[randomIndex],
+    randomIndex,
+  };
+};
