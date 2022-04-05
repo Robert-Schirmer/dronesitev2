@@ -2,13 +2,6 @@
 * CSS not covered with MUI
 */
 
-/* Wallet modal conflicts with mui popover in setting overflow for body, just always have overflow visible */
-/* Popover also sets padding on body, doesnt look good */
-body {
-  overflow: visible !important;
-  padding: 0px !important;
-}
-
 .hoverable:hover {
   cursor: pointer;
 }
@@ -24,4 +17,8 @@ td {
 table {
   border-collapse: separate;
   border-spacing: 1.5em 3em;
+}
+
+.overflow-hidden {
+  overflow: hidden;
 }

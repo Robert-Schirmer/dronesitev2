@@ -1,4 +1,4 @@
-import type { DocumentData, DocumentReference } from 'firebase/firestore/lite';
+import type { DocumentData, DocumentReference, Timestamp } from 'firebase/firestore/lite';
 
 /**
  * All docs should extend this base doc ref
@@ -24,7 +24,9 @@ export interface UserRoleDoc extends BaseDocRef {
  */
 export interface ImageDoc extends BaseDocRef {
   src: string;
+  headerImage: boolean;
   meta: PhotoMeta[];
+  posted: Date | Timestamp;
 }
 
 export interface PhotoMeta {

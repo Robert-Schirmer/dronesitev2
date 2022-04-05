@@ -1,11 +1,10 @@
 import { Grid } from '@mui/material';
-import { collection, getDocs, getFirestore, query } from 'firebase/firestore/lite';
-import { useEffect, useMemo, useState } from 'react';
+import { collection, getDocs, getFirestore, orderBy, query } from 'firebase/firestore/lite';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import GalleryImage from './GalleryImage';
 import HeaderImage from './HeaderImage';
 import Modal from './Modal';
 import { createImagePath, createSrcSet } from './utils';
-import { getRandomFromArray } from '../../utils/functions';
 import type { ImageDoc } from '../../utils/models/DocInterfaces';
 import { fromFirestore } from '../../utils/models/ModelUtils';
 import ContentContainer from '../ContentContainer';
@@ -31,31 +30,39 @@ const Gallery: React.FC = () => {
   useEffect(() => {
     (async () => {
       const db = getFirestore();
-      const snap = await getDocs(query(collection(db, 'images')));
+      const snap = await getDocs(query(collection(db, 'images'), orderBy('headerImage', 'desc'), orderBy('posted')));
       const images = snap.docs.map((doc) => fromFirestore<ImageDoc>(doc));
-      const { randomIndex } = getRandomFromArray(images);
-      const [random] = images.splice(randomIndex, 1);
-      setHeaderImage(random);
-      setImgs(images);
+      // First index will be a header image
+      const [headerImg, ...otherImgs] = images;
+      setHeaderImage(headerImg);
+      setImgs(otherImgs);
     })().catch(console.error);
+  }, []);
+
+  const handleOnModalClose = useCallback(() => {
+    setModalVisibleIndex(false);
   }, []);
 
   return (
     <>
-      {hSrcSet && hLoadingSrc && (
-        <Grid container justifyContent='center'>
-          <HeaderImage srcSet={hSrcSet} loadingSrc={hLoadingSrc} onClick={() => setModalVisibleIndex(0)} />
-          <Modal
-            srcSet={hSrcSet}
-            visible={0 === modalVisibleIndex}
-            loadingSrc={hLoadingSrc}
-            onClose={() => setModalVisibleIndex(false)}
-          />
-        </Grid>
-      )}
-      {imgs.length ? (
-        <ContentContainer container justifyContent='center'>
-          {imgs.map((img, index) => {
+      <Grid container justifyContent='center'>
+        {hSrcSet && hLoadingSrc ? (
+          <>
+            <HeaderImage srcSet={hSrcSet} loadingSrc={hLoadingSrc} onClick={() => setModalVisibleIndex(0)} />
+            <Modal
+              srcSet={hSrcSet}
+              visible={0 === modalVisibleIndex}
+              loadingSrc={hLoadingSrc}
+              onClose={handleOnModalClose}
+            />
+          </>
+        ) : (
+          <Loading />
+        )}
+      </Grid>
+      <ContentContainer container justifyContent='center' alignItems='center'>
+        {imgs.length ? (
+          imgs.map((img, index) => {
             const loadingSrc = createImagePath(img.src, 300);
             const gallerySrc = createImagePath(img.src, 600);
             const srcSet = createSrcSet(img.src);
@@ -69,17 +76,15 @@ const Gallery: React.FC = () => {
                   srcSet={srcSet}
                   visible={imgIndex === modalVisibleIndex}
                   loadingSrc={loadingSrc}
-                  onClose={() => setModalVisibleIndex(false)}
+                  onClose={handleOnModalClose}
                 />
               </Grid>
             );
-          })}
-        </ContentContainer>
-      ) : (
-        <Grid container justifyContent='center'>
+          })
+        ) : (
           <Loading />
-        </Grid>
-      )}
+        )}
+      </ContentContainer>
     </>
   );
 };

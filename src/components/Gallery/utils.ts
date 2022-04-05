@@ -1,4 +1,4 @@
-const bucketPath = 'https://storage.googleapis.com/iflydrones-public/testing';
+const bucketPath = 'https://storage.googleapis.com/iflydrones-public/imgs';
 
 const sizes = [300, 600, 1200, 2000, 3000];
 

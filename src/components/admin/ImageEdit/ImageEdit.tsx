@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { ImageDoc } from '../../../utils/models/DocInterfaces';
 import { fromFirestore } from '../../../utils/models/ModelUtils';
 import ContentContainer from '../../ContentContainer';
+import Switch from '../../inputs/Switch';
 import TextInput from '../../inputs/TextInput';
 
 interface Props {
@@ -22,7 +23,9 @@ const ImageEdit: React.FC<Props> = ({ doc, onClose }) => {
     if (doc === 'new') {
       setImage({
         src: '',
+        headerImage: false,
         meta: [],
+        posted: new Date(),
       });
     } else {
       const data = fromFirestore<ImageDoc>(doc);
@@ -30,18 +33,22 @@ const ImageEdit: React.FC<Props> = ({ doc, onClose }) => {
     }
   }, [doc]);
 
-  const setValue = useCallback((field: string, newValue) => {
+  const setValue = useCallback((field: keyof ImageDoc, newValue) => {
     setImage((prev) => ({ ...prev!, [field]: newValue }));
   }, []);
 
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      if (!image!.src) {
+      if (!image) {
+        throw 'Image does not exist';
+      }
+      if (!image.src) {
         throw 'No source set';
       }
       if (doc === 'new') {
         const db = getFirestore();
+        image.posted = new Date();
         // New document
         await addDoc(collection(db, 'images'), image);
         // Document saved
@@ -79,6 +86,11 @@ const ImageEdit: React.FC<Props> = ({ doc, onClose }) => {
         <>
           <Grid item xs={6}>
             <TextInput label='Source' value={image.src} onChange={(newValue) => setValue('src', newValue)} />
+            <Switch
+              label='Header image'
+              checked={image.headerImage}
+              onChange={(event) => setValue('headerImage', event.target.checked)}
+            />
           </Grid>
           <Grid item container xs={6} spacing={2}>
             {image.meta.map((meta, index) => {

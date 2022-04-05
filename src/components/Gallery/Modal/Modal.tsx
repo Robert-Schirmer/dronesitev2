@@ -1,5 +1,5 @@
 import { Box, Zoom } from '@mui/material';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Loading from '../../Loading';
 
 interface ModalProps {
@@ -12,16 +12,29 @@ interface ModalProps {
 const Modal: React.FC<ModalProps> = ({ srcSet, visible, loadingSrc, onClose }) => {
   const [loading, setLoading] = useState(visible);
   const imgRef = useRef<HTMLImageElement>(null);
+  const scrollPosition = useRef<number>(0);
 
   useEffect(() => {
-    if (visible && imgRef.current && !imgRef.current.complete) {
-      // Show loading indicator if image is not loaded
-      setLoading(true);
-      imgRef.current.onload = function () {
-        setLoading(false);
-      };
+    if (visible) {
+      if (imgRef.current && !imgRef.current.complete) {
+        // Show loading indicator if image is not loaded
+        setLoading(true);
+        imgRef.current.onload = function () {
+          setLoading(false);
+        };
+      }
+      // Save scroll position and dont allow scrolling
+      scrollPosition.current = window.scrollY;
+      document.body.classList.add('overflow-hidden');
     }
   }, [visible]);
+
+  const handleClose = useCallback(() => {
+    // Scroll back to prev position in body
+    document.body.classList.remove('overflow-hidden');
+    window.scrollTo(0, scrollPosition.current);
+    onClose();
+  }, [onClose]);
 
   return visible ? (
     <Box
@@ -37,6 +50,7 @@ const Modal: React.FC<ModalProps> = ({ srcSet, visible, loadingSrc, onClose }) =
         left: 0,
         maxWidth: '3000px',
         zIndex: 2,
+        overflow: 'auto',
         img: {
           maxWidth: '100%',
           maxHeight: '100%',
@@ -47,7 +61,7 @@ const Modal: React.FC<ModalProps> = ({ srcSet, visible, loadingSrc, onClose }) =
           position: 'absolute',
         },
       }}
-      onClick={onClose}
+      onClick={handleClose}
     >
       <Zoom in={true}>
         <img ref={imgRef} srcSet={srcSet} alt='Drone image large' />
