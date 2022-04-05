@@ -30,7 +30,9 @@ const Gallery: React.FC = () => {
   useEffect(() => {
     (async () => {
       const db = getFirestore();
-      const snap = await getDocs(query(collection(db, 'images'), orderBy('headerImage', 'desc'), orderBy('posted')));
+      const snap = await getDocs(
+        query(collection(db, 'images'), orderBy('headerImage', 'desc'), orderBy('posted', 'desc')),
+      );
       const images = snap.docs.map((doc) => fromFirestore<ImageDoc>(doc));
       // First index will be a header image
       const [headerImg, ...otherImgs] = images;
