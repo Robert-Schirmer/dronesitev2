@@ -1,5 +1,13 @@
 import { Box, Button, Grid, Modal } from '@mui/material';
-import { collection, getFirestore, onSnapshot, DocumentData, QueryDocumentSnapshot } from 'firebase/firestore';
+import {
+  collection,
+  getFirestore,
+  onSnapshot,
+  DocumentData,
+  QueryDocumentSnapshot,
+  query,
+  orderBy,
+} from 'firebase/firestore';
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import ImageEdit from '../../src/components/admin/ImageEdit';
@@ -15,10 +23,23 @@ const Admin: NextPage = () => {
 
   useEffect(() => {
     const db = getFirestore();
-    const unsub = onSnapshot(collection(db, 'images'), (snap) => {
-      setDocs(snap.docs);
-    });
-
+    const unsub = onSnapshot(
+      query(collection(db, 'images'), orderBy('headerImage', 'desc'), orderBy('posted', 'desc')),
+      (snap) => {
+        setDocs((prevDocs) => {
+          if (prevDocs.length === 0) {
+            return snap.docs;
+          }
+          const newDocs: typeof docs = [];
+          snap.docChanges().forEach((docChange) => {
+            if (docChange.type === 'added') {
+              newDocs.push(docChange.doc);
+            }
+          });
+          return [...prevDocs, ...newDocs];
+        });
+      },
+    );
     return unsub;
   }, []);
 
@@ -41,13 +62,13 @@ const Admin: NextPage = () => {
           </Box>
         ))}
       </StackCenter>
-      <Modal open={newModalOpen} onClose={() => setNewModalOpen(false)}>
+      <Modal
+        open={newModalOpen}
+        onClose={() => setNewModalOpen(false)}
+        sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+      >
         <Box
           sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%,-50%)',
             padding: '30px',
             borderRadius: (theme) => theme.borderRadius,
             boxShadow: (theme) => theme.boxShadow,

@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import Gallery from '../src/components/Gallery/Gallery';
+import Gallery from '../src/components/Gallery';
 import Layout from '../src/components/Layout';
 import StackCenter from '../src/components/Layout/StackCenter';
 

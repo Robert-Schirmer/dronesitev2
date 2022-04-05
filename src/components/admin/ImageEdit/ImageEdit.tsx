@@ -1,9 +1,11 @@
 import { Button, Grid, Typography } from '@mui/material';
 import { addDoc, collection, DocumentData, getFirestore, QueryDocumentSnapshot, updateDoc } from 'firebase/firestore';
 import { useCallback, useEffect, useState } from 'react';
-import { ImageDoc } from '../../../utils/models/DocInterfaces';
+import type { ImageDoc, PhotoMeta } from '../../../utils/models/DocInterfaces';
 import { fromFirestore } from '../../../utils/models/ModelUtils';
 import ContentContainer from '../../ContentContainer';
+import GalleryImage from '../../Gallery/GalleryImage';
+import type { Image } from '../../Gallery/types';
 import Switch from '../../inputs/Switch';
 import TextInput from '../../inputs/TextInput';
 
@@ -12,10 +14,9 @@ interface Props {
   onClose?: () => void;
 }
 
-type Image = Omit<ImageDoc, 'docRef'>;
-
 const ImageEdit: React.FC<Props> = ({ doc, onClose }) => {
   const [image, setImage] = useState<Image | ImageDoc | null>(null);
+  const [saved, setSaved] = useState(true);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -33,9 +34,49 @@ const ImageEdit: React.FC<Props> = ({ doc, onClose }) => {
     }
   }, [doc]);
 
-  const setValue = useCallback((field: keyof ImageDoc, newValue) => {
-    setImage((prev) => ({ ...prev!, [field]: newValue }));
+  const onFieldUpdate = useCallback(() => {
+    setSaved(false);
   }, []);
+
+  const setValue = useCallback(
+    (field: keyof Image, newValue) => {
+      onFieldUpdate();
+      setImage((prev) => ({ ...prev!, [field]: newValue }));
+    },
+    [onFieldUpdate],
+  );
+
+  const setArrayFieldValue = useCallback(
+    (parentField: 'meta', index: number, field: keyof PhotoMeta, newValue: string) => {
+      onFieldUpdate();
+      setImage((prev) => {
+        prev![parentField][index][field] = newValue;
+        return { ...prev, meta: [...prev!.meta] } as Image;
+      });
+    },
+    [onFieldUpdate],
+  );
+
+  const addToArrayField = useCallback(
+    (parentField: 'meta', ...newValues: PhotoMeta[]) => {
+      onFieldUpdate();
+      setImage((prev) => {
+        return { ...prev, [parentField]: [...prev![parentField], ...newValues] } as Image;
+      });
+    },
+    [onFieldUpdate],
+  );
+
+  const deleteFromArrayField = useCallback(
+    (parentField: 'meta', index: number) => {
+      onFieldUpdate();
+      setImage((prev) => {
+        prev![parentField].splice(index, 1);
+        return { ...prev, meta: [...prev!.meta] } as Image;
+      });
+    },
+    [onFieldUpdate],
+  );
 
   const handleSubmit = async () => {
     setLoading(true);
@@ -51,6 +92,7 @@ const ImageEdit: React.FC<Props> = ({ doc, onClose }) => {
         image.posted = new Date();
         // New document
         await addDoc(collection(db, 'images'), image);
+        setSaved(true);
         // Document saved
         onClose?.();
       } else {
@@ -59,6 +101,7 @@ const ImageEdit: React.FC<Props> = ({ doc, onClose }) => {
         // https://github.com/firebase/firebase-js-sdk/issues/5853
         // @ts-ignore
         await updateDoc(docRef, data);
+        setSaved(true);
       }
     } catch (error) {
       if (typeof error === 'string') {
@@ -77,6 +120,7 @@ const ImageEdit: React.FC<Props> = ({ doc, onClose }) => {
     <ContentContainer
       sx={{
         minWidth: 500,
+        padding: '20px',
       }}
       container
       flexDirection='row'
@@ -84,6 +128,9 @@ const ImageEdit: React.FC<Props> = ({ doc, onClose }) => {
     >
       {image && (
         <>
+          <Grid container justifyContent='center'>
+            {image && image.src && <GalleryImage image={image} />}
+          </Grid>
           <Grid item xs={6}>
             <TextInput label='Source' value={image.src} onChange={(newValue) => setValue('src', newValue)} />
             <Switch
@@ -100,54 +147,36 @@ const ImageEdit: React.FC<Props> = ({ doc, onClose }) => {
                     <TextInput
                       label='Label'
                       value={meta.label}
-                      onChange={(newValue) =>
-                        setImage((prev) => {
-                          prev!.meta[index].label = newValue as string;
-                          return { ...prev, meta: [...prev!.meta] } as Image;
-                        })
-                      }
+                      onChange={(newValue) => setArrayFieldValue('meta', index, 'label', newValue as string)}
                     />
                   </Grid>
                   <Grid item xs={5}>
                     <TextInput
                       label='Value'
                       value={meta.value}
-                      onChange={(newValue) =>
-                        setImage((prev) => {
-                          prev!.meta[index].value = newValue as string;
-                          return { ...prev, meta: [...prev!.meta] } as Image;
-                        })
-                      }
+                      onChange={(newValue) => setArrayFieldValue('meta', index, 'value', newValue as string)}
                     />
                   </Grid>
                   <Grid item xs={2}>
-                    <Button
-                      onClick={() =>
-                        setImage((prev) => {
-                          prev!.meta.splice(index, 1);
-                          return { ...prev, meta: [...prev!.meta] } as Image;
-                        })
-                      }
-                    >
-                      X
-                    </Button>
+                    <Button onClick={() => deleteFromArrayField('meta', index)}>X</Button>
                   </Grid>
                 </Grid>
               );
             })}
             <Grid item container justifyContent='center' spacing={2}>
               <Grid item>
-                <Button
-                  onClick={() =>
-                    setImage((prev) => ({ ...prev, meta: [...prev!.meta, { label: '', value: '' }] } as Image))
-                  }
-                >
-                  Add meta
-                </Button>
+                <Button onClick={() => addToArrayField('meta', { label: '', value: '' })}>Add meta</Button>
               </Grid>
               <Grid item>
                 <Button
-                  onClick={() => setImage((prev) => ({ ...prev, meta: [...prev!.meta, ...defaultMeta] } as Image))}
+                  onClick={() =>
+                    addToArrayField(
+                      'meta',
+                      { label: 'Location', value: '' },
+                      { label: 'Time', value: '' },
+                      { label: 'Elevation', value: '' },
+                    )
+                  }
                 >
                   Add default meta
                 </Button>
@@ -157,8 +186,8 @@ const ImageEdit: React.FC<Props> = ({ doc, onClose }) => {
         </>
       )}
       <Grid item container justifyContent='center'>
-        <Button disabled={loading} onClick={handleSubmit}>
-          Save
+        <Button disabled={loading || saved} onClick={handleSubmit}>
+          {saved ? 'Saved' : 'Save'}
         </Button>
       </Grid>
       {message && (
@@ -169,11 +198,5 @@ const ImageEdit: React.FC<Props> = ({ doc, onClose }) => {
     </ContentContainer>
   );
 };
-
-const defaultMeta = [
-  { label: 'Location', value: '' },
-  { label: 'Time', value: '' },
-  { label: 'Elevation', value: '' },
-];
 
 export default ImageEdit;
