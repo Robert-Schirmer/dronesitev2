@@ -11,7 +11,7 @@ const MainLogo: React.FC = () => {
         flexDirection: 'column',
         h5: {
           background: (theme) =>
-            `linear-gradient(to right, ${theme.palette.secondary.main}, ${theme.palette.primary.main})`,
+            `linear-gradient(to right, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
         },

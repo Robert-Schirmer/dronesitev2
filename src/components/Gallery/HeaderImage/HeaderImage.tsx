@@ -6,10 +6,11 @@ interface Props {
   onClick: () => void;
 }
 
-const HeaderImage: React.FC<Props> = ({ srcSet, onClick, loadingSrc }) => {
+const HeaderImage: React.FC<Props> = ({ srcSet, onClick, loadingSrc, children }) => {
   return (
     <Box
       sx={{
+        position: 'relative',
         img: (theme) => ({
           boxShadow: theme.boxShadow,
           borderRadius: theme.borderRadius,
@@ -24,6 +25,7 @@ const HeaderImage: React.FC<Props> = ({ srcSet, onClick, loadingSrc }) => {
       }}
     >
       <img srcSet={srcSet} alt='Header image' onClick={onClick} />
+      {children}
     </Box>
   );
 };

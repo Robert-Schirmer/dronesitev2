@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 import HeaderImage from '../HeaderImage';
 import Modal from '../Modal';
+import PhotoMetaTooltip from '../PhotoMetaTooltip';
 import Thumbnail from '../Thumbnail';
 import type { Image } from '../types';
 import { createImagePath, createSrcSet } from '../utils';
@@ -14,10 +15,10 @@ interface Props {
 }
 
 const GalleryImage: React.FC<Props> = ({ image, modalOpen, onThumbnailClick, onModalClose, header }) => {
-  const { gallerySrc, srcSet, loadingSrc } = useMemo(() => {
+  const { thumbnailSrc, srcSet, loadingSrc } = useMemo(() => {
     return {
       loadingSrc: createImagePath(image.src, 300),
-      gallerySrc: createImagePath(image.src, 600),
+      thumbnailSrc: createImagePath(image.src, 600),
       srcSet: createSrcSet(image.src),
     };
   }, [image.src]);
@@ -45,9 +46,13 @@ const GalleryImage: React.FC<Props> = ({ image, modalOpen, onThumbnailClick, onM
   return (
     <>
       {header ? (
-        <HeaderImage srcSet={srcSet} loadingSrc={loadingSrc} onClick={handleThumbnailClick} />
+        <HeaderImage srcSet={srcSet} loadingSrc={loadingSrc} onClick={handleThumbnailClick}>
+          <PhotoMetaTooltip photoMeta={image.meta} />
+        </HeaderImage>
       ) : (
-        <Thumbnail src={gallerySrc} loadingSrc={loadingSrc} onClick={handleThumbnailClick} />
+        <Thumbnail src={thumbnailSrc} loadingSrc={loadingSrc} onClick={handleThumbnailClick}>
+          <PhotoMetaTooltip photoMeta={image.meta} />
+        </Thumbnail>
       )}
       <Modal
         srcSet={srcSet}

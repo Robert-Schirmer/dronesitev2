@@ -6,12 +6,13 @@ interface Props {
   onClick: () => void;
 }
 
-const Thumbnail: React.FC<Props> = ({ src, onClick, loadingSrc }) => {
+const Thumbnail: React.FC<Props> = ({ src, onClick, loadingSrc, children }) => {
   return (
     <Box
       sx={{
+        position: 'relative',
+        margin: '20px',
         img: (theme) => ({
-          margin: '20px',
           boxShadow: theme.boxShadow,
           borderRadius: theme.borderRadius,
           width: '300px',
@@ -24,6 +25,7 @@ const Thumbnail: React.FC<Props> = ({ src, onClick, loadingSrc }) => {
       }}
     >
       <img loading='lazy' src={src} alt='Gallery image' onClick={onClick} />
+      {children}
     </Box>
   );
 };
