@@ -9,24 +9,24 @@ let theme = createMyTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#E71D36',
+      main: '#35A7FF',
     },
     secondary: {
-      main: '#B388EB',
+      main: '#05F140',
     },
     text: {
-      primary: '#FCF7FF',
-      light: '#FCF7FF',
-      dark: '#30343F',
+      primary: '#EAEAEA',
+      light: '#EAEAEA',
+      dark: '#020300',
     },
     error: {
       main: '#D81159',
     },
     background: {
-      default: '#30343F',
-      content: '#30343F',
-      header: '#30343F',
-      footer: '#30343F',
+      default: '#020300',
+      content: '#020300',
+      header: '#020300',
+      footer: '#020300',
     },
     ...sharedPalette,
   },
