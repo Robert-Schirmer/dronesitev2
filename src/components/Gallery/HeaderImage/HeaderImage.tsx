@@ -11,6 +11,7 @@ const HeaderImage: React.FC<Props> = ({ srcSet, onClick, loadingSrc, children })
     <Box
       sx={{
         position: 'relative',
+        display: 'flex',
         img: (theme) => ({
           boxShadow: theme.boxShadow,
           borderRadius: theme.borderRadius,

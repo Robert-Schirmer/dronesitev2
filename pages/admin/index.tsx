@@ -70,6 +70,7 @@ const Admin: NextPage = () => {
         <Box
           sx={{
             padding: '30px',
+            border: (theme) => `2px solid ${theme.palette.secondary.main}`,
             borderRadius: (theme) => theme.borderRadius,
             boxShadow: (theme) => theme.boxShadow,
             backgroundColor: (theme) => theme.palette.background.content,

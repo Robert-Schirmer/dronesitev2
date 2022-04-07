@@ -6,7 +6,7 @@ import StackCenter from '../src/components/Layout/StackCenter';
 const Home: NextPage = () => {
   return (
     <Layout>
-      <StackCenter contentMaxWidth={1400} stackSpacing={12}>
+      <StackCenter contentMaxWidth={2000} stackSpacing={12}>
         <Gallery />
       </StackCenter>
     </Layout>

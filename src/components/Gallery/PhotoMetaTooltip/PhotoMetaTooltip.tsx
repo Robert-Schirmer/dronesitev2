@@ -23,7 +23,7 @@ const PhotoMetaInfo: React.FC<Props> = ({ photoMeta }) => {
       <Box
         sx={{
           position: 'absolute',
-          bottom: 10,
+          bottom: 5,
           right: 5,
           display: 'flex',
           svg: {
@@ -37,9 +37,6 @@ const PhotoMetaInfo: React.FC<Props> = ({ photoMeta }) => {
         }}
       >
         <MetaDataTooltip
-          // PopperProps={{
-          //   disablePortal: true,
-          // }}
           onClose={handleTooltipClose}
           open={open}
           disableFocusListener

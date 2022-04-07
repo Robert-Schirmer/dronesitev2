@@ -6,6 +6,7 @@ import { fromFirestore } from '../../../utils/models/ModelUtils';
 import ContentContainer from '../../ContentContainer';
 import GalleryImage from '../../Gallery/GalleryImage';
 import type { Image } from '../../Gallery/types';
+import DateTimeSelector from '../../inputs/DateTimeSelector';
 import Switch from '../../inputs/Switch';
 import TextInput from '../../inputs/TextInput';
 
@@ -89,7 +90,7 @@ const ImageEdit: React.FC<Props> = ({ doc, onClose }) => {
       }
       if (doc === 'new') {
         const db = getFirestore();
-        image.posted = new Date();
+        // image.posted = new Date();
         // New document
         await addDoc(collection(db, 'images'), image);
         setSaved(true);
@@ -119,67 +120,87 @@ const ImageEdit: React.FC<Props> = ({ doc, onClose }) => {
   return (
     <ContentContainer
       sx={{
-        minWidth: 500,
         padding: '20px',
+        '.img-cont': {
+          minHeight: '300px',
+        },
       }}
       container
+      maxWidth={1000}
       flexDirection='row'
       spacing={3}
     >
       {image && (
         <>
-          <Grid container justifyContent='center'>
-            {image && image.src && <GalleryImage image={image} />}
+          <Grid container justifyContent='center' className='img-cont'>
+            <div>{image && image.src && <GalleryImage image={image} />}</div>
           </Grid>
-          <Grid item xs={6}>
-            <TextInput label='Source' value={image.src} onChange={(newValue) => setValue('src', newValue)} />
-            <Switch
-              label='Header image'
-              checked={image.headerImage}
-              onChange={(event) => setValue('headerImage', event.target.checked)}
-            />
-          </Grid>
-          <Grid item container xs={6} spacing={2}>
-            {image.meta.map((meta, index) => {
-              return (
-                <Grid item key={index} container spacing={2}>
-                  <Grid item xs={5}>
-                    <TextInput
-                      label='Label'
-                      value={meta.label}
-                      onChange={(newValue) => setArrayFieldValue('meta', index, 'label', newValue as string)}
-                    />
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <TextInput label='Source' value={image.src} onChange={(newValue) => setValue('src', newValue)} />
+                </Grid>
+                <Grid item xs={12}>
+                  <DateTimeSelector
+                    label='Posted'
+                    value={image.posted}
+                    onChange={(newDate) => setValue('posted', newDate)}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Switch
+                    label='Header image'
+                    checked={image.headerImage}
+                    onChange={(event) => setValue('headerImage', event.target.checked)}
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item xs={6}>
+              <Grid container spacing={2}>
+                {image.meta.map((meta, index) => {
+                  return (
+                    <Grid item xs={12} container key={index} spacing={2}>
+                      <Grid item xs={5}>
+                        <TextInput
+                          label='Label'
+                          value={meta.label}
+                          onChange={(newValue) => setArrayFieldValue('meta', index, 'label', newValue as string)}
+                        />
+                      </Grid>
+                      <Grid item xs={5}>
+                        <TextInput
+                          label='Value'
+                          value={meta.value}
+                          onChange={(newValue) => setArrayFieldValue('meta', index, 'value', newValue as string)}
+                        />
+                      </Grid>
+                      <Grid item xs={2}>
+                        <Button onClick={() => deleteFromArrayField('meta', index)}>X</Button>
+                      </Grid>
+                    </Grid>
+                  );
+                })}
+                <Grid item container justifyContent='center' spacing={2}>
+                  <Grid item>
+                    <Button onClick={() => addToArrayField('meta', { label: '', value: '' })}>Add meta</Button>
                   </Grid>
-                  <Grid item xs={5}>
-                    <TextInput
-                      label='Value'
-                      value={meta.value}
-                      onChange={(newValue) => setArrayFieldValue('meta', index, 'value', newValue as string)}
-                    />
-                  </Grid>
-                  <Grid item xs={2}>
-                    <Button onClick={() => deleteFromArrayField('meta', index)}>X</Button>
+                  <Grid item>
+                    <Button
+                      onClick={() =>
+                        addToArrayField(
+                          'meta',
+                          { label: 'Location', value: '' },
+                          { label: 'Time', value: '' },
+                          { label: 'Elevation', value: '' },
+                        )
+                      }
+                    >
+                      Add default meta
+                    </Button>
                   </Grid>
                 </Grid>
-              );
-            })}
-            <Grid item container justifyContent='center' spacing={2}>
-              <Grid item>
-                <Button onClick={() => addToArrayField('meta', { label: '', value: '' })}>Add meta</Button>
-              </Grid>
-              <Grid item>
-                <Button
-                  onClick={() =>
-                    addToArrayField(
-                      'meta',
-                      { label: 'Location', value: '' },
-                      { label: 'Time', value: '' },
-                      { label: 'Elevation', value: '' },
-                    )
-                  }
-                >
-                  Add default meta
-                </Button>
               </Grid>
             </Grid>
           </Grid>

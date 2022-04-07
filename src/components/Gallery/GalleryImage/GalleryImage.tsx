@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
+import { convertTimestamp } from '../../../utils/functions';
 import HeaderImage from '../HeaderImage';
 import Modal from '../Modal';
 import PhotoMetaTooltip from '../PhotoMetaTooltip';
@@ -26,6 +27,12 @@ const GalleryImage: React.FC<Props> = ({ image, modalOpen, onThumbnailClick, onM
   const useLocalState = useMemo(() => {
     return modalOpen == null;
   }, [modalOpen]);
+  const postedMeta = useMemo(() => {
+    return {
+      label: 'Posted',
+      value: convertTimestamp(image.posted).toLocaleDateString(),
+    };
+  }, [image.posted]);
 
   const handleThumbnailClick = useCallback(() => {
     if (useLocalState) {
@@ -47,11 +54,11 @@ const GalleryImage: React.FC<Props> = ({ image, modalOpen, onThumbnailClick, onM
     <>
       {header ? (
         <HeaderImage srcSet={srcSet} loadingSrc={loadingSrc} onClick={handleThumbnailClick}>
-          <PhotoMetaTooltip photoMeta={image.meta} />
+          <PhotoMetaTooltip photoMeta={[...image.meta, postedMeta]} />
         </HeaderImage>
       ) : (
         <Thumbnail src={thumbnailSrc} loadingSrc={loadingSrc} onClick={handleThumbnailClick}>
-          <PhotoMetaTooltip photoMeta={image.meta} />
+          <PhotoMetaTooltip photoMeta={[...image.meta, postedMeta]} />
         </Thumbnail>
       )}
       <Modal

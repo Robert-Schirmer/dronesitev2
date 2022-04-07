@@ -11,6 +11,7 @@ const Thumbnail: React.FC<Props> = ({ src, onClick, loadingSrc, children }) => {
     <Box
       sx={{
         position: 'relative',
+        display: 'flex',
         margin: '20px',
         img: (theme) => ({
           boxShadow: theme.boxShadow,
