@@ -1,4 +1,5 @@
-import { Box, styled, Tooltip, tooltipClasses, TooltipProps, Typography } from '@mui/material';
+import { Box, styled, Tooltip, tooltipClasses, TooltipProps, Typography, ClickAwayListener } from '@mui/material';
+import { useCallback, useState } from 'react';
 import InfoIcon from '../../../assets/icons/svg/Info';
 import type { PhotoMeta } from '../../../utils/models/DocInterfaces';
 
@@ -7,33 +8,57 @@ interface Props {
 }
 
 const PhotoMetaInfo: React.FC<Props> = ({ photoMeta }) => {
+  const [open, setOpen] = useState(false);
+
+  const handleTooltipClose = useCallback(() => {
+    setOpen(false);
+  }, []);
+
+  const handleTooltipOpen = useCallback(() => {
+    setOpen(true);
+  }, []);
+
   return photoMeta.length ? (
-    <Box
-      sx={{
-        position: 'absolute',
-        bottom: 5,
-        right: 5,
-        svg: {
-          color: 'secondary.main',
-          height: '20px',
-          width: '20px',
-        },
-      }}
-    >
-      <MetaDataTooltip
-        title={
-          <>
-            {photoMeta.map((meta, index) => (
-              <Typography variant='body2' key={index}>
-                {meta.label}: {meta.value}
-              </Typography>
-            ))}
-          </>
-        }
+    <ClickAwayListener onClickAway={handleTooltipClose}>
+      <Box
+        sx={{
+          position: 'absolute',
+          bottom: 10,
+          right: 5,
+          display: 'flex',
+          svg: {
+            color: 'secondary.main',
+            height: '20px',
+            width: '20px',
+          },
+          '&:hover': {
+            cursor: 'pointer',
+          },
+        }}
       >
-        <InfoIcon />
-      </MetaDataTooltip>
-    </Box>
+        <MetaDataTooltip
+          // PopperProps={{
+          //   disablePortal: true,
+          // }}
+          onClose={handleTooltipClose}
+          open={open}
+          disableFocusListener
+          disableHoverListener
+          disableTouchListener
+          title={
+            <>
+              {photoMeta.map((meta, index) => (
+                <Typography variant='body2' key={index}>
+                  {meta.label}: {meta.value}
+                </Typography>
+              ))}
+            </>
+          }
+        >
+          <InfoIcon onClick={handleTooltipOpen} />
+        </MetaDataTooltip>
+      </Box>
+    </ClickAwayListener>
   ) : null;
 };
 

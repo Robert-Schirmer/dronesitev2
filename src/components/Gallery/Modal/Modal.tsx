@@ -1,5 +1,6 @@
-import { Box, Zoom } from '@mui/material';
+import { Box, IconButton, Zoom } from '@mui/material';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import Close from '../../../assets/icons/svg/Close';
 import Loading from '../../Loading';
 
 interface ModalProps {
@@ -60,9 +61,18 @@ const Modal: React.FC<ModalProps> = ({ srcSet, visible, loadingSrc, onClose }) =
         '.loading-icon': {
           position: 'absolute',
         },
+        '.close-modal': {
+          zIndex: 3,
+          position: 'absolute',
+          top: 15,
+          right: 15,
+          color: 'secondary.main',
+        },
       }}
-      onClick={handleClose}
     >
+      <IconButton className='close-modal' onClick={handleClose}>
+        <Close />
+      </IconButton>
       <Zoom in={true}>
         <img ref={imgRef} srcSet={srcSet} alt='Drone image large' />
       </Zoom>
