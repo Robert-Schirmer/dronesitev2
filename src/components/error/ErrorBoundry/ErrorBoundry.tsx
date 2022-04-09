@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material';
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
 interface Props {}
 
@@ -7,7 +7,7 @@ interface State {
   hasError: boolean;
 }
 
-class ErrorBoundary extends React.Component<Props, State> {
+class ErrorBoundary extends React.Component<PropsWithChildren<Props>, State> {
   constructor(props: Props) {
     super(props);
     this.state = { hasError: false };

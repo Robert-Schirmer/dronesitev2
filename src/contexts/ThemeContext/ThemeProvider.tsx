@@ -2,12 +2,13 @@ import { ThemeProvider as MUIThemeProvider } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
 import type { ThemeMode } from './types';
 import { ThemeModeContext } from './useThemeMode';
+import type { PropsWithChildrenOnly } from '../../../types';
 import darkTheme from '../../theme/dark';
 import lightTheme from '../../theme/light';
 import { getCookie, setCookie } from '../../utils/cookies';
 import { CookieName } from '../../utils/cookies/enums';
 
-export const ThemeProvider: React.FC = ({ children }) => {
+export const ThemeProvider: React.FC<PropsWithChildrenOnly> = ({ children }) => {
   const [mode, setMode] = useState<ThemeMode>('light');
 
   useEffect(() => {

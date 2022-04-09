@@ -2,7 +2,6 @@ import { useCallback, useMemo, useState } from 'react';
 import { convertTimestamp } from '../../../utils/functions';
 import HeaderImage from '../HeaderImage';
 import Modal from '../Modal';
-import PhotoMetaTooltip from '../PhotoMetaTooltip';
 import Thumbnail from '../Thumbnail';
 import type { Image } from '../types';
 import { createImagePath, createSrcSet } from '../utils';
@@ -16,6 +15,10 @@ interface Props {
 }
 
 const GalleryImage: React.FC<Props> = ({ image, modalOpen, onThumbnailClick, onModalClose, header }) => {
+  const [localVisible, setLocalVisible] = useState(false);
+  const useLocalState = useMemo(() => {
+    return modalOpen == null;
+  }, [modalOpen]);
   const { thumbnailSrc, srcSet, loadingSrc } = useMemo(() => {
     return {
       loadingSrc: createImagePath(image.src, 300),
@@ -23,10 +26,6 @@ const GalleryImage: React.FC<Props> = ({ image, modalOpen, onThumbnailClick, onM
       srcSet: createSrcSet(image.src),
     };
   }, [image.src]);
-  const [localVisible, setLocalVisible] = useState(false);
-  const useLocalState = useMemo(() => {
-    return modalOpen == null;
-  }, [modalOpen]);
   const postedMeta = useMemo(() => {
     return {
       label: 'Posted',
@@ -53,13 +52,19 @@ const GalleryImage: React.FC<Props> = ({ image, modalOpen, onThumbnailClick, onM
   return (
     <>
       {header ? (
-        <HeaderImage srcSet={srcSet} loadingSrc={loadingSrc} onClick={handleThumbnailClick}>
-          <PhotoMetaTooltip photoMeta={[...image.meta, postedMeta]} />
-        </HeaderImage>
+        <HeaderImage
+          srcSet={srcSet}
+          loadingSrc={loadingSrc}
+          onClick={handleThumbnailClick}
+          photoMeta={[...image.meta, postedMeta]}
+        />
       ) : (
-        <Thumbnail src={thumbnailSrc} loadingSrc={loadingSrc} onClick={handleThumbnailClick}>
-          <PhotoMetaTooltip photoMeta={[...image.meta, postedMeta]} />
-        </Thumbnail>
+        <Thumbnail
+          src={thumbnailSrc}
+          loadingSrc={loadingSrc}
+          onClick={handleThumbnailClick}
+          photoMeta={[...image.meta, postedMeta]}
+        />
       )}
       <Modal
         srcSet={srcSet}

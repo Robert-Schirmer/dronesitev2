@@ -40,7 +40,7 @@ const ImageEdit: React.FC<Props> = ({ doc, onClose }) => {
   }, []);
 
   const setValue = useCallback(
-    (field: keyof Image, newValue) => {
+    (field: keyof Image, newValue: any) => {
       onFieldUpdate();
       setImage((prev) => ({ ...prev!, [field]: newValue }));
     },

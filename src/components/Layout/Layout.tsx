@@ -1,4 +1,5 @@
 import { Box } from '@mui/material';
+import type { PropsWithChildren } from 'react';
 import Footer from './Footer';
 import Navigation from './Navigation';
 import ScrollTop from '../ScrollTop';
@@ -9,7 +10,12 @@ interface Props {
   footerMargin?: number;
 }
 
-const Layout: React.FC<Props> = ({ children, navigation = true, footer = true, footerMargin = 100 }) => {
+const Layout: React.FC<PropsWithChildren<Props>> = ({
+  children,
+  navigation = true,
+  footer = true,
+  footerMargin = 100,
+}) => {
   return (
     <Box
       sx={{

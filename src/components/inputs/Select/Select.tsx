@@ -11,17 +11,17 @@ const Select: React.FC<Props> = ({ label, children, ...selectProps }) => {
       color='secondary'
       sx={{
         '& label': {
-          color: (theme) => theme.palette.text.light,
+          color: (theme) => theme.palette.text.primary,
         },
         '& .MuiOutlinedInput-root': {
           '& fieldset': {
-            borderColor: (theme) => theme.palette.text.light,
+            borderColor: (theme) => theme.palette.text.primary,
           },
           '&:hover fieldset': {
             borderColor: (theme) => theme.palette.secondary.main,
           },
           '& .MuiSelect-select': {
-            color: (theme) => theme.palette.text.light,
+            color: (theme) => theme.palette.text.primary,
           },
         },
       }}

@@ -2,13 +2,14 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, User,
 import { useCallback, useEffect, useState } from 'react';
 import '../../utils/firebase/app'; // Make sure firebse is initialized
 import { UserAuthContext } from './useUserAuth';
+import type { PropsWithChildrenOnly } from '../../../types';
 import { setCookie } from '../../utils/cookies';
 import { CookieName } from '../../utils/cookies/enums';
 import type { Role } from '../../utils/models/DocInterfaces';
 
 const auth = getAuth();
 
-export const UserAuthProvider: React.FC = ({ children }) => {
+export const UserAuthProvider: React.FC<PropsWithChildrenOnly> = ({ children }) => {
   const [user, setUser] = useState<null | User>(null);
   const [roles, setRoles] = useState<Role[]>([]);
   const [loading, setLoading] = useState(true);

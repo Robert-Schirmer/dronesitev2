@@ -1,4 +1,5 @@
 import { Grid, Stack, SxProps } from '@mui/material';
+import type { PropsWithChildren } from 'react';
 
 interface Props {
   contentMaxWidth?: number;
@@ -6,7 +7,12 @@ interface Props {
   sx?: SxProps;
 }
 
-const StackCenter: React.FC<Props> = ({ children, contentMaxWidth = 1000, stackSpacing = 4, sx }) => {
+const StackCenter: React.FC<PropsWithChildren<Props>> = ({
+  children,
+  contentMaxWidth = 1000,
+  stackSpacing = 4,
+  sx,
+}) => {
   return (
     <Grid container justifyContent='center' sx={{ padding: '0px 20px' }}>
       <Stack

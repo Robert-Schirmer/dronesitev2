@@ -1,12 +1,15 @@
 import { Box } from '@mui/material';
+import type { PhotoMeta } from '../../../utils/models/DocInterfaces';
+import PhotoMetaTooltip from '../PhotoMetaTooltip';
 
 interface Props {
   src: string;
   loadingSrc: string;
+  photoMeta: PhotoMeta[];
   onClick: () => void;
 }
 
-const Thumbnail: React.FC<Props> = ({ src, onClick, loadingSrc, children }) => {
+const Thumbnail: React.FC<Props> = ({ src, onClick, loadingSrc, photoMeta }) => {
   return (
     <Box
       sx={{
@@ -26,7 +29,7 @@ const Thumbnail: React.FC<Props> = ({ src, onClick, loadingSrc, children }) => {
       }}
     >
       <img loading='lazy' src={src} alt='Gallery image' onClick={onClick} />
-      {children}
+      <PhotoMetaTooltip photoMeta={photoMeta} />
     </Box>
   );
 };
