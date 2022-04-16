@@ -12,7 +12,7 @@ const GalleryImages: React.FC<Props> = ({ imgs }) => {
 
   return (
     <>
-      {allFilters.length && <Filters filters={allFilters} onFilterChange={onFilterChange} />}
+      {!!allFilters.length && <Filters filters={allFilters} onFilterChange={onFilterChange} />}
       {filteredImgs.map((img) => (
         <GalleryImage key={img.docRef.id} image={img} />
       ))}

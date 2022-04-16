@@ -29,7 +29,7 @@ const HeaderImage: React.FC<Props> = ({ srcSet, onClick, loadingSrc, photoMeta }
       }}
     >
       <img srcSet={srcSet} alt='Header image' onClick={onClick} />
-      <PhotoMetaTooltip photoMeta={photoMeta} />
+      <PhotoMetaTooltip photoMeta={photoMeta} waitForImageLoad={loadingSrc} />
     </Box>
   );
 };

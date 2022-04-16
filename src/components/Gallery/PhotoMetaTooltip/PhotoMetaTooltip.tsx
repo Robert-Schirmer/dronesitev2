@@ -1,14 +1,30 @@
 import { Box, styled, Tooltip, tooltipClasses, TooltipProps, Typography, ClickAwayListener } from '@mui/material';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import InfoIcon from '../../../assets/icons/svg/Info';
 import type { PhotoMeta } from '../../../utils/models/DocInterfaces';
 
 interface Props {
   photoMeta: PhotoMeta[];
+  waitForImageLoad?: string;
 }
 
-const PhotoMetaInfo: React.FC<Props> = ({ photoMeta }) => {
+const PhotoMetaInfo: React.FC<Props> = ({ photoMeta, waitForImageLoad }) => {
   const [open, setOpen] = useState(false);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (waitForImageLoad) {
+      let img: HTMLImageElement | null = new Image();
+      img.addEventListener('load', () => {
+        setVisible(true);
+        // Release from memory, setup for garbage collection
+        img = null;
+      });
+      img.src = waitForImageLoad;
+    } else {
+      setVisible(true);
+    }
+  }, [waitForImageLoad]);
 
   const handleTooltipClose = useCallback(() => {
     setOpen(false);
@@ -18,7 +34,7 @@ const PhotoMetaInfo: React.FC<Props> = ({ photoMeta }) => {
     setOpen(true);
   }, []);
 
-  return photoMeta.length ? (
+  return photoMeta.length && visible ? (
     <ClickAwayListener onClickAway={handleTooltipClose}>
       <Box
         sx={{

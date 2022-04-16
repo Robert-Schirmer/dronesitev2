@@ -29,7 +29,7 @@ const Thumbnail: React.FC<Props> = ({ src, onClick, loadingSrc, photoMeta }) => 
       }}
     >
       <img loading='lazy' src={src} alt='Gallery image' onClick={onClick} />
-      <PhotoMetaTooltip photoMeta={photoMeta} />
+      <PhotoMetaTooltip photoMeta={photoMeta} waitForImageLoad={loadingSrc} />
     </Box>
   );
 };
