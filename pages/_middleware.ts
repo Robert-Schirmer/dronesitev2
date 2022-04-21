@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { setCookie } from '../src/utils/api';
-import { createJWTToken, isJWTTokenError, validJWTToken } from '../src/utils/api/jwt/index';
-import { CookieName } from '../src/utils/cookies/enums';
+import { setCookie } from 'utils/api';
+import { createJWTToken, isJWTTokenError, validJWTToken } from 'utils/api/jwt/index';
+import { CookieName } from 'utils/cookies/enums';
 
 /**
  * Middleware for entire website

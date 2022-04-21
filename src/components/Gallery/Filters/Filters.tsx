@@ -1,6 +1,6 @@
 import { Grid, MenuItem } from '@mui/material';
-import type { Filter } from '../../../utils/hooks/useGalleryFilter/types';
-import Select from '../../inputs/Select';
+import Select from 'components/inputs/Select';
+import type { Filter } from 'utils/hooks/useGalleryFilter/types';
 
 interface Props {
   filters: Filter[];

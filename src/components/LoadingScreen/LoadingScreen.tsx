@@ -1,5 +1,5 @@
 import { Stack } from '@mui/material';
-import Loading from '../Loading';
+import Loading from 'components/Loading';
 
 // Takes up whole screen
 const LoadingScreen: React.FC = () => {

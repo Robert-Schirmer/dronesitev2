@@ -2,12 +2,12 @@ import { Button, Grid, Stack, Typography } from '@mui/material';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/dist/client/router';
 import { FormEvent, useState } from 'react';
+import ContentContainer from 'components/ContentContainer';
+import TextInput from 'components/inputs/TextInput';
+import Layout from 'components/Layout';
+import Loading from 'components/Loading';
+import MainLogo from 'components/Logo/MainLogo';
 import pack from '../package.json';
-import ContentContainer from '../src/components/ContentContainer';
-import TextInput from '../src/components/inputs/TextInput';
-import Layout from '../src/components/Layout';
-import Loading from '../src/components/Loading';
-import MainLogo from '../src/components/Logo/MainLogo';
 
 const Login: NextPage = () => {
   const [pass, setPass] = useState('');

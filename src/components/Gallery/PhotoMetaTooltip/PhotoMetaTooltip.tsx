@@ -1,7 +1,7 @@
 import { Box, styled, Tooltip, tooltipClasses, TooltipProps, Typography, ClickAwayListener } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
-import InfoIcon from '../../../assets/icons/svg/Info';
-import type { PhotoMeta } from '../../../utils/models/DocInterfaces';
+import InfoIcon from 'assets/icons/svg/Info';
+import type { PhotoMeta } from 'utils/models/DocInterfaces';
 
 interface Props {
   photoMeta: PhotoMeta[];

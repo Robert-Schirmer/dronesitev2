@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState, useTransition } from 'react';
+import type { ImageDoc } from 'utils/models/DocInterfaces';
 import { Filter } from './types';
 import { createFilters } from './utils';
-import type { ImageDoc } from '../../models/DocInterfaces';
 
 /**
  * Hook to provide and consume set filters on gallery images

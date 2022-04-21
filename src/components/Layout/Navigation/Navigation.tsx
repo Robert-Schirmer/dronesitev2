@@ -1,13 +1,13 @@
 import { AppBar, Button, Drawer, Grid, Hidden, Stack, Switch, Toolbar } from '@mui/material';
 import Link from 'next/link';
 import { ChangeEvent, useState } from 'react';
-import HamburgerIcon from '../../../assets/icons/svg/Hamburger';
-import MoonIcon from '../../../assets/icons/svg/Moon';
-import SunIcon from '../../../assets/icons/svg/Sun';
-import useThemeMode from '../../../contexts/ThemeContext/useThemeMode';
-import useUserAuth from '../../../contexts/UserAuthContext/useUserAuth';
-import { Role } from '../../../utils/models/DocInterfaces';
-import MainLogo from '../../Logo/MainLogo';
+import HamburgerIcon from 'assets/icons/svg/Hamburger';
+import MoonIcon from 'assets/icons/svg/Moon';
+import SunIcon from 'assets/icons/svg/Sun';
+import MainLogo from 'components/Logo/MainLogo';
+import useThemeMode from 'contexts/ThemeContext/useThemeMode';
+import useUserAuth from 'contexts/UserAuthContext/useUserAuth';
+import { Role } from 'utils/models/DocInterfaces';
 import NavLink from '../NavLink';
 import { navPages } from '../Pages';
 

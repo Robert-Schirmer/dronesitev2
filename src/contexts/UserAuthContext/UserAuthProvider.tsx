@@ -1,11 +1,11 @@
 import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, User, signOut } from 'firebase/auth';
 import { useCallback, useEffect, useState } from 'react';
-import '../../utils/firebase/app'; // Make sure firebse is initialized
+import 'utils/firebase/app'; // Make sure firebse is initialized
+import type { PropsWithChildrenOnly } from 'types';
+import { setCookie } from 'utils/cookies';
+import { CookieName } from 'utils/cookies/enums';
+import type { Role } from 'utils/models/DocInterfaces';
 import { UserAuthContext } from './useUserAuth';
-import type { PropsWithChildrenOnly } from '../../types';
-import { setCookie } from '../../utils/cookies';
-import { CookieName } from '../../utils/cookies/enums';
-import type { Role } from '../../utils/models/DocInterfaces';
 
 const auth = getAuth();
 

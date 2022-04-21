@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { isJWTTokenError, validJWTToken } from '../../src/utils/api/jwt';
-import { RoleToken } from '../../src/utils/api/jwt/types';
-import { CookieName } from '../../src/utils/cookies/enums';
-import { Role } from '../../src/utils/models/DocInterfaces';
+import { isJWTTokenError, validJWTToken } from 'utils/api/jwt';
+import { RoleToken } from 'utils/api/jwt/types';
+import { CookieName } from 'utils/cookies/enums';
+import { Role } from 'utils/models/DocInterfaces';
 
 /*
  * Middleware for Admin endpoint

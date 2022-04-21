@@ -1,11 +1,11 @@
 import { Button, Grid, Stack, Typography } from '@mui/material';
 import type { NextPage } from 'next';
 import { useCallback } from 'react';
-import ContentContainer from '../../src/components/ContentContainer';
-import Layout from '../../src/components/Layout';
-import Loading from '../../src/components/Loading';
-import MainLogo from '../../src/components/Logo/MainLogo';
-import useUserAuth from '../../src/contexts/UserAuthContext/useUserAuth';
+import ContentContainer from 'components/ContentContainer';
+import Layout from 'components/Layout';
+import Loading from 'components/Loading';
+import MainLogo from 'components/Logo/MainLogo';
+import useUserAuth from 'contexts/UserAuthContext/useUserAuth';
 
 const Login: NextPage = () => {
   const { googleSignIn, loading, signOut, user } = useUserAuth();

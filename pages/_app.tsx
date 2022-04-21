@@ -2,14 +2,14 @@ import { CacheProvider, EmotionCache } from '@emotion/react';
 import { CssBaseline, StyledEngineProvider } from '@mui/material';
 import type { AppProps } from 'next/app';
 import { useEffect } from 'react';
-import '../src/theme/app.css';
-import '../src/theme/fonts.css';
-import '../src/theme/animations.css';
+import 'theme/app.css';
+import 'theme/fonts.css';
+import 'theme/animations.css';
 import smoothscroll from 'smoothscroll-polyfill';
-import AppHead from '../src/components/Layout/AppHead';
-import DynamicProviders from '../src/components/Providers/DynamicProviders';
-import ThemeProvider from '../src/contexts/ThemeContext/ThemeProvider';
-import createEmotionCache from '../src/utils/functions/createEmotionCache';
+import AppHead from 'components/Layout/AppHead';
+import DynamicProviders from 'components/Providers/DynamicProviders';
+import ThemeProvider from 'contexts/ThemeContext/ThemeProvider';
+import createEmotionCache from 'utils/functions/createEmotionCache';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();

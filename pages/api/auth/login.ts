@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { setCookie } from '../../../src/utils/api';
-import { createJWTToken } from '../../../src/utils/api/jwt';
-import { CookieName } from '../../../src/utils/cookies/enums';
+import { setCookie } from 'utils/api';
+import { createJWTToken } from 'utils/api/jwt';
+import { CookieName } from 'utils/cookies/enums';
 
 interface Success {
   status: 'SUCCESS';

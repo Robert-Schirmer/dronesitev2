@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import type { PhotoMeta } from '../../../utils/models/DocInterfaces';
+import type { PhotoMeta } from 'utils/models/DocInterfaces';
 import PhotoMetaTooltip from '../PhotoMetaTooltip';
 
 interface Props {

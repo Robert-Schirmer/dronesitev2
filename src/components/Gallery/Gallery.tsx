@@ -1,12 +1,12 @@
 import { Grid } from '@mui/material';
 import { collection, getDocs, getFirestore, orderBy, query } from 'firebase/firestore/lite';
 import { useEffect, useState } from 'react';
+import ContentContainer from 'components/ContentContainer';
+import Loading from 'components/Loading';
+import type { ImageDoc } from 'utils/models/DocInterfaces';
+import { fromFirestore } from 'utils/models/ModelUtils';
 import GalleryImage from './GalleryImage';
 import GalleryImages from './GalleryImages';
-import type { ImageDoc } from '../../utils/models/DocInterfaces';
-import { fromFirestore } from '../../utils/models/ModelUtils';
-import ContentContainer from '../ContentContainer';
-import Loading from '../Loading';
 
 const Gallery: React.FC = () => {
   const [headerImage, setHeaderImage] = useState<ImageDoc | null>(null);

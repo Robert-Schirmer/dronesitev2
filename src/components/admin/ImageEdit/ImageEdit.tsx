@@ -1,14 +1,14 @@
 import { Button, Grid, Typography } from '@mui/material';
 import { addDoc, collection, DocumentData, getFirestore, QueryDocumentSnapshot, updateDoc } from 'firebase/firestore';
 import { useCallback, useEffect, useState } from 'react';
-import type { ImageDoc, PhotoMeta } from '../../../utils/models/DocInterfaces';
-import { fromFirestore } from '../../../utils/models/ModelUtils';
-import ContentContainer from '../../ContentContainer';
-import GalleryImage from '../../Gallery/GalleryImage';
-import type { Image } from '../../Gallery/types';
-import DateTimeSelector from '../../inputs/DateTimeSelector';
-import Switch from '../../inputs/Switch';
-import TextInput from '../../inputs/TextInput';
+import ContentContainer from 'components/ContentContainer';
+import GalleryImage from 'components/Gallery/GalleryImage';
+import type { Image } from 'components/Gallery/types';
+import DateTimeSelector from 'components/inputs/DateTimeSelector';
+import Switch from 'components/inputs/Switch';
+import TextInput from 'components/inputs/TextInput';
+import type { ImageDoc, PhotoMeta } from 'utils/models/DocInterfaces';
+import { fromFirestore } from 'utils/models/ModelUtils';
 
 interface Props {
   doc: 'new' | QueryDocumentSnapshot<DocumentData>;

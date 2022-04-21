@@ -1,7 +1,7 @@
 import { TextField } from '@mui/material';
 import { Timestamp } from 'firebase-admin/firestore';
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
-import { convertTimestamp } from '../../../utils/functions';
+import { convertTimestamp } from 'utils/functions';
 
 interface Props {
   value: Date | Timestamp | null;

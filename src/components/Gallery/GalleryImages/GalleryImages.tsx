@@ -1,5 +1,5 @@
-import useGalleryFilter from '../../../utils/hooks/useGalleryFilter';
-import { ImageDoc } from '../../../utils/models/DocInterfaces';
+import useGalleryFilter from 'utils/hooks/useGalleryFilter';
+import { ImageDoc } from 'utils/models/DocInterfaces';
 import Filters from '../Filters';
 import GalleryImage from '../GalleryImage';
 

@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { convertTimestamp } from '../../../utils/functions';
+import { convertTimestamp } from 'utils/functions';
 import HeaderImage from '../HeaderImage';
 import Modal from '../Modal';
 import Thumbnail from '../Thumbnail';

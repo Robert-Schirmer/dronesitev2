@@ -1,6 +1,6 @@
 import { Grid, Typography, Box } from '@mui/material';
+import MainLogo from 'components/Logo/MainLogo/MainLogo';
 import pack from '../../../../package.json';
-import MainLogo from '../../Logo/MainLogo/MainLogo';
 
 interface Props {
   topMargin?: number;

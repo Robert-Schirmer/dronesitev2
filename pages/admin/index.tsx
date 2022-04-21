@@ -10,11 +10,11 @@ import {
 } from 'firebase/firestore';
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import ImageEdit from '../../src/components/admin/ImageEdit';
-import Layout from '../../src/components/Layout';
-import StackCenter from '../../src/components/Layout/StackCenter';
-import usePageRoles from '../../src/utils/hooks/usePageRoles';
-import { Role } from '../../src/utils/models/DocInterfaces';
+import ImageEdit from 'components/admin/ImageEdit';
+import Layout from 'components/Layout';
+import StackCenter from 'components/Layout/StackCenter';
+import usePageRoles from 'utils/hooks/usePageRoles';
+import { Role } from 'utils/models/DocInterfaces';
 
 const Admin: NextPage = () => {
   usePageRoles(Role.ADMIN);

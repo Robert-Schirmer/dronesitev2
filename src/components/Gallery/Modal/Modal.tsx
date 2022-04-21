@@ -1,7 +1,7 @@
 import { Box, IconButton, Zoom } from '@mui/material';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import Close from '../../../assets/icons/svg/Close';
-import Loading from '../../Loading';
+import Close from 'assets/icons/svg/Close';
+import Loading from 'components/Loading';
 
 interface ModalProps {
   visible: boolean;

@@ -16,7 +16,8 @@
     "incremental": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "baseUrl": "src"
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pre-commit.mjs"],
   "exclude": ["node_modules"]

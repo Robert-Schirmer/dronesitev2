@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import useUserAuth from '../../contexts/UserAuthContext/useUserAuth';
-import { Role } from '../models/DocInterfaces';
+import useUserAuth from 'contexts/UserAuthContext/useUserAuth';
+import { Role } from 'utils/models/DocInterfaces';
 
 /*
  * Listens for changes to a user's roles and moves them off

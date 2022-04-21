@@ -1,5 +1,5 @@
 import type { JWTPayload } from 'jose';
-import type { Role } from '../../models/DocInterfaces';
+import type { Role } from 'utils/models/DocInterfaces';
 
 export interface TokenPayload extends JWTPayload {
   exp: number; // Exp should always be defined

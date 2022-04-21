@@ -1,8 +1,8 @@
 import { Typography } from '@mui/material';
 import { NextPage } from 'next';
-import ContentContainer from '../src/components/ContentContainer';
-import Layout from '../src/components/Layout';
-import StackCenter from '../src/components/Layout/StackCenter';
+import ContentContainer from 'components/ContentContainer';
+import Layout from 'components/Layout';
+import StackCenter from 'components/Layout/StackCenter';
 
 const PageNotFound: NextPage = () => {
   return (

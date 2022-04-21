@@ -1,8 +1,8 @@
 import { Box } from '@mui/material';
 import type { PropsWithChildren } from 'react';
+import ScrollTop from 'components/ScrollTop';
 import Footer from './Footer';
 import Navigation from './Navigation';
-import ScrollTop from '../ScrollTop';
 
 interface Props {
   navigation?: boolean;

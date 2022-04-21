@@ -1,12 +1,12 @@
 import { DecodedIdToken, getAuth } from 'firebase-admin/auth';
 import { getFirestore } from 'firebase-admin/firestore';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { setCookie } from '../../../src/utils/api';
-import { initializeFirebaseAdmin } from '../../../src/utils/api/firebase';
-import { createJWTToken } from '../../../src/utils/api/jwt';
-import { CookieName } from '../../../src/utils/cookies/enums';
-import { Role, UserRoleDoc } from '../../../src/utils/models/DocInterfaces';
-import { fromFirestore } from '../../../src/utils/models/ModelUtils';
+import { setCookie } from 'utils/api';
+import { initializeFirebaseAdmin } from 'utils/api/firebase';
+import { createJWTToken } from 'utils/api/jwt';
+import { CookieName } from 'utils/cookies/enums';
+import { Role, UserRoleDoc } from 'utils/models/DocInterfaces';
+import { fromFirestore } from 'utils/models/ModelUtils';
 
 interface Success {
   status: 'SUCCESS';
