@@ -14,7 +14,7 @@ const Login: NextPage = () => {
     try {
       await googleSignIn();
     } catch (error) {
-      // Handle error signing in
+      console.error(error);
     }
   }, [googleSignIn]);
 
